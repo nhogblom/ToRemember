@@ -1,58 +1,29 @@
 package team.dream.ServerSide;
 
-import team.dream.shared.Connections;
 import team.dream.shared.Message;
-import team.dream.shared.MessageType;
-import team.dream.shared.User;
-
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class ClientHandler extends Thread {
-
-    private ObjectInputStream inputStream;
-    private ObjectOutputStream outputStream;
+    private Socket socket;
     private SingleServerProtocol serverProtocol = SingleServerProtocol.getServerProtocol();
-    private static final ArrayList<Connections> connectionsList = new ArrayList<>();
-    private final SingleUserDatabase singleUserDatabase = SingleUserDatabase.getUserDB();
-
 
     ClientHandler(Socket socket) {
-        try {
-            this.outputStream = new ObjectOutputStream(socket.getOutputStream());
-            this.inputStream = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.socket = socket;
     }
 
     @Override
     public void run(){
-        try{
-            while(true){
-                Message inputFromClient = (Message) inputStream.readObject();
+        try(ObjectOutputStream outputStream = new  ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())){
 
-                if(inputFromClient != null && inputFromClient.getType().equals(MessageType.REQUEST_LOGIN)){
-                   User existingUser = serverProtocol.verifyUserInUserDatabase(inputFromClient);
-                    if(existingUser != null){
-                        connectionsList.add(new Connections(existingUser.getUserName(),outputStream,inputStream));
-                        IO.println("CLIENTHANDLER: New Connection added. Total connections: " + connectionsList.size());
-
-                    }else{
-                        outputStream.writeObject(new Message(MessageType.USER_NOT_FOUND,inputFromClient.getData()));
-                        String newUserUsername = (String)(inputFromClient.getData());
-                        singleUserDatabase.addNewUser(newUserUsername);
-                        //todo ersätt denna med något mer robust, och t.ex en factory som skapar användarna.
-                        connectionsList.add(new Connections(newUserUsername,outputStream,inputStream));
-                        IO.println("CLIENTHANDLER: New Connection added. Total connections: " + connectionsList.size());
-                    }
-                }else if(inputFromClient != null){
-                    serverProtocol.processInputFromClient(inputFromClient);
-                }
-
+            Message messageFromUser;
+            IO.println("ClientHandler: Waiting for client to send");
+            while((messageFromUser = (Message) inputStream.readObject()) != null){
+                IO.println("ClientHandler: Received from client");
+                outputStream.writeObject(serverProtocol.processInputFromClient(messageFromUser));
+                IO.println("ClientHandler: Sent to client");
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -6,39 +6,29 @@ import java.net.Socket;
 
 public class SingleServerListener {
     private static final SingleServerListener instance = new SingleServerListener();
-    private int port = 55555;
-    private boolean running = true;
+    private int port = 44444;
 
-
-    private SingleServerListener() {
-
-    }
+    private SingleServerListener() {}
 
     public void start(){
         try(ServerSocket serverSocket = new ServerSocket(port)){
 
-            while(running){
+            while(true){
                 Socket socket = serverSocket.accept();
                 IO.println("SSL: Client Connected");
 
                 ClientHandler clientHandler = new ClientHandler(socket);
                 clientHandler.start();
             }
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static SingleServerListener getInstance() {
-        return instance;
-    }
+    public static SingleServerListener getInstance() {return instance;}
 
     static void main() {
         SingleServerListener SSL = SingleServerListener.getInstance();
         SSL.start();
     }
-
-
 }

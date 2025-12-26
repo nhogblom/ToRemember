@@ -1,11 +1,10 @@
-package team.dream.ServerSide;
+package team.dream.Databases;
 
 import team.dream.shared.User;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SingleUserDatabase {
@@ -17,7 +16,7 @@ public class SingleUserDatabase {
     private SingleUserDatabase() {
         userListInDB = readUserListFromFileJson();
 
-        IO.println("SingleuserDB: Users in list: " + userListInDB.size());
+        IO.println("SingleUserDB: Users in list: " + userListInDB.size());
 
     }
 
@@ -36,7 +35,7 @@ public class SingleUserDatabase {
         writeUserListToFileJson();
     }
 
-    public static SingleUserDatabase getUserDB() {
+    public static SingleUserDatabase getInstance() {
         return userDB;
     }
 
