@@ -34,15 +34,6 @@ public class View {
     }
 
 
-    public void categoryEnumPrint() {
-        IO.print("Available categories ");
-        for (Category c : Category.values()) {
-            IO.print(c.toString());
-            IO.print(" ");
-        }
-        IO.println("\nPlease choose one of those categories: ");
-    }
-
     public void showUserOptionForChosenMemoryListView() {
         StringBuilder userOptionsSb = new StringBuilder();
         userOptionsSb.append("What would you like to do with this list.").append("\n").

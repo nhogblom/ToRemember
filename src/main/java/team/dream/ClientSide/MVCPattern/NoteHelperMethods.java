@@ -83,12 +83,12 @@ public class NoteHelperMethods {
             }
             case "category" -> {
                 while (true) {
-                    IO.println("Current Category: " + note.getCategoryEnum().toString());
-                    clientController.getView().categoryEnumPrint();
+                    IO.println("Current Category: " + note.getCategory());
+                    IO.println("Change category to: ");
                     userEdit = scan.nextLine();
                     if (!userEdit.isEmpty()) {
                         try {
-                            note.setCategoryEnum(Category.valueOf(userEdit.trim().toUpperCase()));
+                            note.setCategory(userEdit.trim().toUpperCase());
                             break;
                         } catch (IllegalArgumentException e) {
                             IO.println("---- Please enter a valid category. ----");
@@ -146,8 +146,6 @@ public class NoteHelperMethods {
     }
 
     protected static Note createNewNote(Scanner scan, ClientController clientController) {
-        Category chosenCategory = null;
-
         while (true) {
             try {
                 IO.println("Creating new note, please enter title: ");
@@ -160,15 +158,10 @@ public class NoteHelperMethods {
                 int priority = scan.nextInt();
                 scan.nextLine();
 
-                clientController.getView().categoryEnumPrint();
-                String category = scan.nextLine();
-                try {
-                    chosenCategory = Category.valueOf(category.trim().toUpperCase());
-                } catch (IllegalArgumentException e) {
-                    IO.println("---- Category doesn't exist, please try again. ----");
-                }
+                IO.println("Enter category: ");
+                String category = scan.nextLine().trim().toLowerCase();
 
-                return new Note(title, description, priority, chosenCategory);
+                return new Note(title, description, priority, category);
             } catch (InputMismatchException e) {
                 IO.println("---- Please enter valid values. ----");
             }
