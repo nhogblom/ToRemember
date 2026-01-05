@@ -41,33 +41,57 @@
   "title" : "IvansTredjeTestLista",
   "users" : [ ]
 }, {
-  "memoryListID" : 18,
+  "memoryListID" : 67,
   "notes" : [ {
-    "categoryEnum" : "Family",
-    "description" : "Testing again",
+    "categoryEnum" : "Work",
+    "description" : "note 1",
     "done" : false,
-    "priorityIndex" : 1,
-    "title" : "TEST"
-  } ],
-  "ownerUsername" : "viktor",
-  "title" : "test 2",
-  "users" : [ ]
-}, {
-  "memoryListID" : 78,
-  "notes" : [ ],
-  "ownerUsername" : "viktor",
-  "title" : "test 3",
-  "users" : [ ]
-}, {
-  "memoryListID" : 69,
-  "notes" : [ {
-    "categoryEnum" : "Hobby",
-    "description" : "asdasdasdsa",
+    "priorityIndex" : 5,
+    "title" : "note 1"
+  }, {
+    "categoryEnum" : "Family",
+    "description" : "note 2",
     "done" : false,
     "priorityIndex" : 3,
     "title" : ""
+  }, {
+    "categoryEnum" : "Sport",
+    "description" : "note 3",
+    "done" : false,
+    "priorityIndex" : 1,
+    "title" : ""
+  }, {
+    "categoryEnum" : "Hobby",
+    "description" : "asd",
+    "done" : false,
+    "priorityIndex" : 1,
+    "title" : ""
   } ],
   "ownerUsername" : "viktor",
-  "title" : "test 4",
+  "title" : "list 1",
+  "users" : [ ]
+}, {
+  "memoryListID" : 79,
+  "notes" : [ ],
+  "ownerUsername" : "viktor",
+  "title" : "list 2",
+  "users" : [ ]
+}, {
+  "memoryListID" : 26,
+  "notes" : [ ],
+  "ownerUsername" : "viktor",
+  "title" : "list 3",
+  "users" : [ ]
+}, {
+  "memoryListID" : 49,
+  "notes" : [ {
+    "categoryEnum" : null,
+    "description" : "asd",
+    "done" : false,
+    "priorityIndex" : 1,
+    "title" : ""
+  } ],
+  "ownerUsername" : "viktor",
+  "title" : "asd",
   "users" : [ ]
 } ]

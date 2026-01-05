@@ -64,11 +64,6 @@ public class ClientController {
                         return new Message(MessageType.CREATE_MEMORY_LIST, title, model.getUser());
                     }
                     case 3 -> {
-                        //TODO returns user in message but server side requires a specific list to remove from DB
-                        //Possible fix, show all lists for user, choose by index, send chosen list
-                        return new Message(MessageType.REMOVE_MEMORY_LIST, model.getUser());
-                    }
-                    case 4 -> {
                         System.exit(0);
                     }
                     default -> {
