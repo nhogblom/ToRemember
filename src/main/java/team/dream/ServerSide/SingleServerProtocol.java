@@ -1,13 +1,16 @@
 package team.dream.ServerSide;
 
 
-import team.dream.Databases.SingleMemoryListDatabase;
-import team.dream.Databases.SingleUserDatabase;
+import team.dream.Databases.ConnectionToSQL;
+import team.dream.Databases.MemoryListMethodSQL;
+import team.dream.Databases.SQLTableFunctions;
+import team.dream.Databases.UsersMethodSQL;
+import team.dream.oldDatabases.SingleMemoryListDatabase;
+import team.dream.oldDatabases.SingleUserDatabase;
 import team.dream.shared.MemoryList;
 import team.dream.shared.Message;
 import team.dream.shared.MessageType;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -15,6 +18,9 @@ public class SingleServerProtocol {
     private static final SingleServerProtocol serverProtocol = new SingleServerProtocol();
     private static final SingleUserDatabase userDatabase = SingleUserDatabase.getInstance();
     private static final SingleMemoryListDatabase singleMemoryListDatabase = SingleMemoryListDatabase.getInstance();
+    private static final ConnectionToSQL connToSQL = ConnectionToSQL.getInstance();
+    private final String userTableName = "users";
+    private final String memoryListTableName = "memorylist";
 
     private SingleServerProtocol() {
     }
@@ -28,7 +34,8 @@ public class SingleServerProtocol {
             case REQUEST_LOGIN -> {
                 IO.println(inputFromClient.getType() + " received from client");
                 if (inputFromClient.getData() instanceof String usernameToCheck) {
-                    if (userDatabase.findExistingUser(usernameToCheck) != null) {
+                    SQLTableFunctions.createTableIfNotExist(userTableName);
+                    if (UsersMethodSQL.checkIfUserExistsInDB(usernameToCheck)) {
                         IO.println("User found, Login Successful");
                         return new Message(MessageType.STARTING_MENU, usernameToCheck);
                     } else {
@@ -41,7 +48,7 @@ public class SingleServerProtocol {
             case CREATE_NEW_USER -> {
                 IO.println(inputFromClient.getType() + " received from client");
                 if (inputFromClient.getData() instanceof String usernameToAddToDB) {
-                    userDatabase.addNewUser(usernameToAddToDB);
+                    UsersMethodSQL.addUserToDB(usernameToAddToDB);
                     IO.println("SSP: New User created");
                     return new Message(MessageType.STARTING_MENU, usernameToAddToDB);
                 }
@@ -50,18 +57,8 @@ public class SingleServerProtocol {
             case CREATE_MEMORY_LIST -> {
                 IO.println(inputFromClient.getType() + " received from client");
                 if (inputFromClient.getData() instanceof String titleOfNewMemoryList) {
-                    Random randomID = new Random();
-                    int assignedIdToNewMemoryList = randomID.nextInt(100);
-                    while (singleMemoryListDatabase.isIDtaken(assignedIdToNewMemoryList)) {
-                        assignedIdToNewMemoryList = randomID.nextInt(100);
-                    }
-                    MemoryList memoryListToAddToDB = new MemoryList(
-                            titleOfNewMemoryList,
-                            inputFromClient.getUsername(),
-                            assignedIdToNewMemoryList);
-
-                    singleMemoryListDatabase.addNewMemoryListToDB(memoryListToAddToDB);
-                    IO.println("SSP: Memorylist added to DB succesfully");
+                    SQLTableFunctions.createMemoryListTableIfNotExist(memoryListTableName);
+                    MemoryListMethodSQL.createNewMemoryList(inputFromClient.getUsername(), titleOfNewMemoryList);
                     return new Message(MessageType.STARTING_MENU, inputFromClient.getUsername());
                 }
             }
@@ -81,11 +78,13 @@ public class SingleServerProtocol {
                     singleMemoryListDatabase.updateNotesInMemoryListInDB(updatedMemoryListWithUpdatedNote);
                     return new Message(MessageType.SHOW_CHOSEN_MEMORY_LIST, updatedMemoryListWithUpdatedNote, inputFromClient.getUsername());
                 }
+                System.out.println("skipped if statement");
             }
 
             case REMOVE_MEMORY_LIST -> {
                 IO.println(inputFromClient.getType() + " received from client");
                 if (inputFromClient.getData() instanceof MemoryList memoryListToRemoveFromDB) {
+                    System.out.println("inside if");
                     singleMemoryListDatabase.removeMemoryListFromDB(memoryListToRemoveFromDB);
                     return new Message(MessageType.SHOW_LIST_OF_MEMORY_LISTS, singleMemoryListDatabase.getAllUsersMemoryLists(inputFromClient.getUsername()), inputFromClient.getUsername());
                 }
@@ -113,11 +112,13 @@ public class SingleServerProtocol {
             case SHOW_LIST_OF_MEMORY_LISTS -> {
                 IO.println(inputFromClient.getType() + " received from client");
                 if (inputFromClient.getData() instanceof String ownerUsername) {
-                    return new Message(MessageType.SHOW_LIST_OF_MEMORY_LISTS, singleMemoryListDatabase.getAllUsersMemoryLists(ownerUsername), ownerUsername);
+                    SQLTableFunctions.createMemoryListTableIfNotExist(memoryListTableName);
+                    return new Message(MessageType.SHOW_LIST_OF_MEMORY_LISTS, MemoryListMethodSQL.showUsersMemoryLists(ownerUsername), ownerUsername);
                 }
 
             }
         }
+        System.out.println("outside switch");
         return null;
     }
 }
