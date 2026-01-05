@@ -83,12 +83,12 @@ public class NoteHelperMethods {
             }
             case "category" -> {
                 while (true) {
-                    IO.println("Current Category: " + note.getCategoryEnum().toString());
-                    clientController.getView().categoryEnumPrint();
+                    IO.println("Current Category: " + note.getCategory());
+                    IO.println("Change category to: ");
                     userEdit = scan.nextLine();
                     if (!userEdit.isEmpty()) {
                         try {
-                            note.setCategoryEnum(Category.valueOf(userEdit.trim().toUpperCase()));
+                            note.setCategory(userEdit.trim().toUpperCase());
                             break;
                         } catch (IllegalArgumentException e) {
                             IO.println("---- Please enter a valid category. ----");
@@ -146,8 +146,6 @@ public class NoteHelperMethods {
     }
 
     protected static Note createNewNote(Scanner scan, ClientController clientController) {
-        Category chosenCategory = null;
-
         while (true) {
             try {
                 IO.println("Creating new note, please enter title: ");
@@ -156,19 +154,23 @@ public class NoteHelperMethods {
                 IO.println("Enter description of the note: ");
                 String description = scan.nextLine();
 
-                IO.println("Set priority index (1-5, 1 is highest priority, 5 is lowest): ");
-                int priority = scan.nextInt();
-                scan.nextLine();
-
-                clientController.getView().categoryEnumPrint();
-                String category = scan.nextLine();
-                try {
-                    chosenCategory = Category.valueOf(category.trim().toUpperCase());
-                } catch (IllegalArgumentException e) {
-                    IO.println("---- Category doesn't exist, please try again. ----");
+                boolean prioritySet = false;
+                int priority = 0;
+                while (!prioritySet) {
+                    IO.println("Set priority index (1-5, 1 is highest priority, 5 is lowest): ");
+                    priority = scan.nextInt();
+                    scan.nextLine();
+                    if (priority <= 5 && priority >= 1) {
+                        prioritySet = true;
+                    }else{
+                        IO.println("Invalid priority, Please enter a number between 1 and 5 :");
+                    }
                 }
 
-                return new Note(title, description, priority, chosenCategory);
+                IO.println("Enter category: ");
+                String category = scan.nextLine().trim().toLowerCase();
+
+                return new Note(title, description, priority, category);
             } catch (InputMismatchException e) {
                 IO.println("---- Please enter valid values. ----");
             }

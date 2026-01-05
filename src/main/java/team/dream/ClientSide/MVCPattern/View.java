@@ -1,6 +1,4 @@
 package team.dream.ClientSide.MVCPattern;
-
-import team.dream.shared.Category;
 import team.dream.shared.MemoryList;
 import team.dream.shared.Note;
 
@@ -33,15 +31,6 @@ public class View {
         IO.println(sb);
     }
 
-
-    public void categoryEnumPrint() {
-        IO.print("Available categories ");
-        for (Category c : Category.values()) {
-            IO.print(c.toString());
-            IO.print(" ");
-        }
-        IO.println("\nPlease choose one of those categories: ");
-    }
 
     public void showUserOptionForChosenMemoryListView() {
         StringBuilder userOptionsSb = new StringBuilder();
