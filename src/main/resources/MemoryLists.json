@@ -41,20 +41,14 @@
   "title" : "IvansTredjeTestLista",
   "users" : [ ]
 }, {
-  "memoryListID" : 62,
+  "memoryListID" : 18,
   "notes" : [ {
-    "categoryEnum" : "Hobby",
-    "description" : "remember",
+    "categoryEnum" : "Family",
+    "description" : "Testing again",
     "done" : false,
     "priorityIndex" : 1,
-    "title" : ""
+    "title" : "TEST"
   } ],
-  "ownerUsername" : "viktor",
-  "title" : "test",
-  "users" : [ ]
-}, {
-  "memoryListID" : 18,
-  "notes" : [ ],
   "ownerUsername" : "viktor",
   "title" : "test 2",
   "users" : [ ]
@@ -66,7 +60,13 @@
   "users" : [ ]
 }, {
   "memoryListID" : 69,
-  "notes" : [ ],
+  "notes" : [ {
+    "categoryEnum" : "Hobby",
+    "description" : "asdasdasdsa",
+    "done" : false,
+    "priorityIndex" : 3,
+    "title" : ""
+  } ],
   "ownerUsername" : "viktor",
   "title" : "test 4",
   "users" : [ ]
