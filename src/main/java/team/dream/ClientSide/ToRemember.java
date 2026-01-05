@@ -1,27 +1,30 @@
 package team.dream.ClientSide;
 
-import javax.swing.*;
+import team.dream.ClientSide.Network.ClientConnection;
+
 import java.util.Scanner;
 
 public class ToRemember {
-    static void main() {
-
+    public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
-            IO.println("Connect to server = 1, Offline = 2");
-            String inputUser = sc.nextLine();
-            if(inputUser.equals("1")){
-                ClientConnection client = ClientConnection.getClientConnection();
+            ClientConnection client = ClientConnection.getClientConnection();
+            String usernameInputFromUser;
+            while(true){
                 IO.println("Enter username:");
-                client.setUsername(sc.nextLine());
-                client.start();
-
-                try{
-                    client.join();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                usernameInputFromUser = sc.nextLine();
+                if(usernameInputFromUser.isEmpty()){
+                    IO.println("Username can't be empty. Try again!");
+                }else{
+                    client.setUsername(usernameInputFromUser);
+                    client.start();
+                    break;
                 }
-            }else{
-                //Do offline stuff
+            }
+
+            try {
+                client.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }

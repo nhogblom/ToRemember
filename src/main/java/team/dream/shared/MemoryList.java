@@ -1,32 +1,30 @@
 package team.dream.shared;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryList {
+@Data
+public class MemoryList implements Serializable {
     private List<Note> notes = new ArrayList<>();
     private String title;
+    private String ownerUsername;
+    private List<User> users = new ArrayList<>();
+    private int memoryListID;
 
-    public MemoryList(List<Note> notes) {
-        this.notes = notes;
-    }
+    public MemoryList() {}
 
-    public MemoryList() {
-    }
-
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
+    public MemoryList(String title, String ownerUsername, int memoryListID) {
         this.title = title;
+        this.ownerUsername = ownerUsername;
+        this.memoryListID = memoryListID;
     }
+
+    public void addNoteToMemoryList(Note noteToAdd){
+        notes.add(noteToAdd);
+        IO.println("Note " + noteToAdd.getTitle() + " successfully added to " + title);
+    }
+
 }

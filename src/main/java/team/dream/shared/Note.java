@@ -1,29 +1,36 @@
 package team.dream.shared;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Note {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Note implements Serializable {
     private String title;
-    private LocalDateTime deadline;
+    private String description;
+    private int priorityIndex;
+    private Category categoryEnum;
+    private boolean isDone;
 
-    public Note(String title, LocalDateTime deadline) {
+
+    public Note(String title, String description, int priorityIndex, Category categoryEnum) {
         this.title = title;
-        this.deadline = deadline;
+        this.description = description;
+        this.priorityIndex = priorityIndex;
+        this.categoryEnum = categoryEnum;
+        this.isDone = false;
     }
 
-    public String getTitle() {
-        return title;
+    public void printNote(){
+        IO.println("Title: " + title);
+        IO.println("Description: " + description);
+        IO.println("Priority: " + priorityIndex);
+        IO.println("Category: " + categoryEnum.toString());
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDateTime getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
 }
