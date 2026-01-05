@@ -96,7 +96,13 @@
   "users" : [ ]
 }, {
   "memoryListID" : 36,
-  "notes" : [ ],
+  "notes" : [ {
+    "category" : "sopasp",
+    "description" : "Niklasförstaanoote",
+    "done" : false,
+    "priorityIndex" : 2,
+    "title" : ""
+  } ],
   "ownerUsername" : "Niklas",
   "title" : "Nikllas första lista",
   "users" : [ ]

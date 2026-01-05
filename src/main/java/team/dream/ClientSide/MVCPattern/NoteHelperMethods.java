@@ -154,9 +154,18 @@ public class NoteHelperMethods {
                 IO.println("Enter description of the note: ");
                 String description = scan.nextLine();
 
-                IO.println("Set priority index (1-5, 1 is highest priority, 5 is lowest): ");
-                int priority = scan.nextInt();
-                scan.nextLine();
+                boolean prioritySet = false;
+                int priority = 0;
+                while (!prioritySet) {
+                    IO.println("Set priority index (1-5, 1 is highest priority, 5 is lowest): ");
+                    priority = scan.nextInt();
+                    scan.nextLine();
+                    if (priority <= 5 && priority >= 1) {
+                        prioritySet = true;
+                    }else{
+                        IO.println("Invalid priority, Please enter a number between 1 and 5 :");
+                    }
+                }
 
                 IO.println("Enter category: ");
                 String category = scan.nextLine().trim().toLowerCase();
