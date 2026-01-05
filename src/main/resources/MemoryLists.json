@@ -1,19 +1,19 @@
 [ {
   "memoryListID" : 20,
   "notes" : [ {
-    "categoryEnum" : "Work",
+    "category" : null,
     "description" : "sasdfas",
     "done" : true,
     "priorityIndex" : 3,
     "title" : "eddd"
   }, {
-    "categoryEnum" : "Food",
+    "category" : null,
     "description" : "sdafasf12313",
     "done" : false,
     "priorityIndex" : 3,
     "title" : "sadfasfdsaf"
   }, {
-    "categoryEnum" : "Food",
+    "category" : null,
     "description" : "123",
     "done" : false,
     "priorityIndex" : 1,
@@ -25,13 +25,13 @@
 }, {
   "memoryListID" : 68,
   "notes" : [ {
-    "categoryEnum" : "Hobby",
+    "category" : null,
     "description" : "1231231asdfsaf",
     "done" : false,
     "priorityIndex" : 2,
     "title" : "sadkjfaskjfksd"
   }, {
-    "categoryEnum" : "Food",
+    "category" : null,
     "description" : "sadf123",
     "done" : false,
     "priorityIndex" : 2,
@@ -43,25 +43,25 @@
 }, {
   "memoryListID" : 67,
   "notes" : [ {
-    "categoryEnum" : "Work",
+    "category" : null,
     "description" : "note 1",
     "done" : false,
     "priorityIndex" : 5,
     "title" : "note 1"
   }, {
-    "categoryEnum" : "Family",
+    "category" : null,
     "description" : "note 2",
     "done" : false,
     "priorityIndex" : 3,
     "title" : ""
   }, {
-    "categoryEnum" : "Sport",
+    "category" : null,
     "description" : "note 3",
     "done" : false,
     "priorityIndex" : 1,
     "title" : ""
   }, {
-    "categoryEnum" : "Hobby",
+    "category" : null,
     "description" : "asd",
     "done" : false,
     "priorityIndex" : 1,
@@ -85,7 +85,7 @@
 }, {
   "memoryListID" : 49,
   "notes" : [ {
-    "categoryEnum" : null,
+    "category" : null,
     "description" : "asd",
     "done" : false,
     "priorityIndex" : 1,
@@ -93,5 +93,23 @@
   } ],
   "ownerUsername" : "viktor",
   "title" : "asd",
+  "users" : [ ]
+}, {
+  "memoryListID" : 36,
+  "notes" : [ ],
+  "ownerUsername" : "Niklas",
+  "title" : "Nikllas första lista",
+  "users" : [ ]
+}, {
+  "memoryListID" : 17,
+  "notes" : [ {
+    "category" : "SNOPP",
+    "description" : "Lalalal -<",
+    "done" : false,
+    "priorityIndex" : 10,
+    "title" : ""
+  } ],
+  "ownerUsername" : "Niklas",
+  "title" : "NIklas andra lista",
   "users" : [ ]
 } ]
