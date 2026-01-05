@@ -1,6 +1,4 @@
 package team.dream.ClientSide.MVCPattern;
-
-import team.dream.shared.Category;
 import team.dream.shared.MemoryList;
 import team.dream.shared.Note;
 
