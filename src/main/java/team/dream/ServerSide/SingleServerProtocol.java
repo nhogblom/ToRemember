@@ -81,11 +81,13 @@ public class SingleServerProtocol {
                     singleMemoryListDatabase.updateNotesInMemoryListInDB(updatedMemoryListWithUpdatedNote);
                     return new Message(MessageType.SHOW_CHOSEN_MEMORY_LIST, updatedMemoryListWithUpdatedNote, inputFromClient.getUsername());
                 }
+                System.out.println("skipped if statement");
             }
 
             case REMOVE_MEMORY_LIST -> {
                 IO.println(inputFromClient.getType() + " received from client");
                 if (inputFromClient.getData() instanceof MemoryList memoryListToRemoveFromDB) {
+                    System.out.println("inside if");
                     singleMemoryListDatabase.removeMemoryListFromDB(memoryListToRemoveFromDB);
                     return new Message(MessageType.SHOW_LIST_OF_MEMORY_LISTS, singleMemoryListDatabase.getAllUsersMemoryLists(inputFromClient.getUsername()), inputFromClient.getUsername());
                 }
@@ -118,6 +120,7 @@ public class SingleServerProtocol {
 
             }
         }
+        System.out.println("outside switch");
         return null;
     }
 }
